@@ -140,7 +140,10 @@ export async function resolveSessionAuthProfileOverride(params: {
 
   let next = current;
   if (isNewSession) {
-    next = current ? pickNextAvailable(current) : pickFirstAvailable();
+    // User-set overrides round-robin from the current position; auto-selected
+    // overrides (from failover) are discarded so the new session picks the best
+    // available profile fresh — avoiding sticky cooldown/rate-limited profiles.
+    next = current && source === "user" ? pickNextAvailable(current) : pickFirstAvailable();
   } else if (current && compactionCount > storedCompaction) {
     next = pickNextAvailable(current);
   } else if (!current || isProfileInCooldown(store, current)) {

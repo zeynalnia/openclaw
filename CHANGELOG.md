@@ -96,6 +96,7 @@ Docs: https://docs.openclaw.ai
 - Approvals/runtime: move native approval lifecycle assembly into shared core bootstrap/runtime seams driven by channel capabilities and runtime contexts, and remove the legacy bundled approval fallback wiring. (#62135) Thanks @gumadeiras.
 - Security/fetch-guard: stop rejecting operator-configured proxy hostnames against the target-scoped hostname allowlist in SSRF-guarded fetches, restoring proxy-based media downloads for Telegram and other channels. (#62312) Thanks @ademczuk.
 - iOS/gateway: replace string-matched connection error UI with structured gateway connection problems, preserve actionable pairing/auth failures over later generic disconnect noise, and surface reusable problem banners and details across onboarding, settings, and root status surfaces. (#62650) Thanks @ngutman.
+- Auth/profiles: stop new sessions from inheriting auto-selected auth profile overrides from rate-limited or cooldown backup profiles, so new sessions pick the best available profile instead of staying pinned to a stale failover choice. (#62412)
 
 ## 2026.4.5
 
